@@ -24,7 +24,8 @@ fun StudentDashboard(
     student: Student?,
     onLogout: () -> Unit,
     onNavigateToAttendance: (String) -> Unit,
-    onNavigateToTimeTable:(String)->Unit
+    onNavigateToTimeTable:(String)->Unit,
+    onNavigateToPasswordChange:(String)-> Unit
 ) {
     if (student == null) {
         // Show loading while fetching student details
@@ -124,6 +125,7 @@ fun StudentDashboard(
                         when (route) {
                             "my_attendance" -> student.rollNo.let { onNavigateToAttendance(it) }
                             "timetable" ->student.classId.let{onNavigateToTimeTable(it)}
+                            "passwordChange" ->student.id.let{onNavigateToPasswordChange(it)}
                         }
                     }
                 }
@@ -143,6 +145,7 @@ data class StudentQuickActionCard(
 val studentQuickActions = listOf(
     StudentQuickActionCard("My Attendance", Icons.Default.CheckCircle, "my_attendance"),
     StudentQuickActionCard("Timetable", Icons.Default.Schedule, "timetable"),
+    StudentQuickActionCard("Change Password", Icons.Default.Lock, "passwordChange")
 )
 
 // Quick Action Card Composable

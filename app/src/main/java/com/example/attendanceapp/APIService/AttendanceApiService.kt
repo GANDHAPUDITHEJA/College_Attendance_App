@@ -103,6 +103,15 @@ interface AttendanceApiService {
         @Path("teacherId") teacherId: String,
         @Path("day") day: String
     ): Response<List<TimeTableResponse>>
+
+    @FormUrlEncoded
+    @POST("students/change-password/{id}")
+    suspend fun changeStudentPassword(
+        @Path("id") studentId: String,
+        @Field("oldPassword") oldPassword: String,
+        @Field("newPassword") newPassword: String
+    ): retrofit2.Response<ChangePasswordResponse>
+
 }
 object RetrofitClient {
     private const val BASE_URL = "http://192.168.0.155:8088/api/" // For emulator

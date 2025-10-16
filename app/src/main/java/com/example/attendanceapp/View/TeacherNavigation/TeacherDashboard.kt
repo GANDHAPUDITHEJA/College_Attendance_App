@@ -126,7 +126,7 @@ data class QuickAction(
 val teacherQuickActions = listOf(
     QuickAction("Take Attendance", Icons.Default.CheckCircle, "take_attendance"),
     QuickAction("My Classes", Icons.Default.Class, "view_assign_class"),
-    QuickAction("Time Table", Icons.Default.TableView, "teacher_time_table"),
+    QuickAction("Time Table", Icons.Default.Schedule, "teacher_time_table"),
     QuickAction("Change Password", Icons.Default.Lock, "change_password")
 )
 

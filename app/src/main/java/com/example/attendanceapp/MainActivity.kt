@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.attendanceapp.View.*
 import com.example.attendanceapp.View.StudentNavigation.SeeStudentAttendanceScreen
+import com.example.attendanceapp.View.StudentNavigation.StudentChangePasswordScreen
 import com.example.attendanceapp.View.StudentNavigation.StudentDashboard
 import com.example.attendanceapp.View.StudentNavigation.TimeTableScreen
 import com.example.attendanceapp.View.TeacherNavigation.TakeAttendanceScreen
@@ -89,8 +90,11 @@ class MainActivity : ComponentActivity() {
                             onNavigateToAttendance = { rollNo ->
                                 navController.navigate("my_attendance/$rollNo")
                             },
-                            onNavigateToTimeTable = { teacherId ->
-                                navController.navigate("timetable/$teacherId")  // Take Attendance
+                            onNavigateToTimeTable = { classId ->
+                                navController.navigate("timetable/$classId")  // Take Attendance
+                            },
+                            onNavigateToPasswordChange = { studentId ->
+                                navController.navigate("passwordChange/$studentId")  // Take Attendance
                             }
                         )
                     }
@@ -98,7 +102,10 @@ class MainActivity : ComponentActivity() {
                         val classId = backStackEntry.arguments?.getString("classId") ?: ""
                         TimeTableScreen(classId)
                     }
-
+                    composable("passwordChange/{studentId}") { backStackEntry ->
+                        val studentId = backStackEntry.arguments?.getString("studentId") ?: ""
+                        StudentChangePasswordScreen(studentId, navController)
+                    }
 
                     composable("my_attendance/{rollNo}") { backStackEntry ->
                             val rollNo = backStackEntry.arguments?.getString("rollNo") ?: ""

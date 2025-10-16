@@ -11,6 +11,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.attendanceapp.APIService.AttendanceApiService
+import com.example.attendanceapp.APIService.RetrofitClient.apiService
+import com.example.attendanceapp.DataModels.ClassModel
 import com.example.attendanceapp.ViewModel.TeacherTimeTableViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -54,8 +56,6 @@ fun TeacherTimeTableScreen(
                 .padding(16.dp)
                 .fillMaxSize()
         ) {
-            Text("Teacher ID: $teacherId", fontWeight = FontWeight.SemiBold)
-
             Spacer(modifier = Modifier.height(8.dp))
 
             DaySelector(selectedDay) { newDay ->
@@ -89,24 +89,47 @@ fun TeacherTimeTableScreen(
 
 @Composable
 fun ClassTimeTableCard(timetable: AttendanceApiService.TimeTableResponse) {
+    // 👇 State to hold class name
+    var classModel by remember { mutableStateOf<ClassModel?>(null) }
+
+    LaunchedEffect(timetable.classId) {
+        classModel = getClassModelById(timetable.classId)
+    }
+
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(
-                text = "Class: ${timetable.classId}",
+                text = "Class: ${classModel?.className ?: timetable.classId}",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
+            Text(
+                text = "Semester: ${classModel?.semester ?: timetable.classId}",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+
             Spacer(modifier = Modifier.height(8.dp))
 
             timetable.slots.forEach { slot ->
+                // 👇 State to hold subject name for each slot
+                var subjectName by remember { mutableStateOf("") }
+
+                LaunchedEffect(slot.subjectId) {
+                    subjectName = getSubjectNameById(slot.subjectId)
+                }
+
                 Text(
                     text = "${slot.startTime} - ${slot.endTime}",
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "Subject: ${slot.subjectId}")
+                Text(
+                    text = "Subject: ${if (subjectName.isNotEmpty()) subjectName else "Loading..."}"
+                )
                 slot.activity?.takeIf { it.isNotBlank() }?.let {
                     Text("Activity: $it", color = MaterialTheme.colorScheme.secondary)
                 }
@@ -137,5 +160,33 @@ fun DaySelector(selectedDay: String, onDaySelected: (String) -> Unit) {
                 )
             }
         }
+    }
+}
+
+// ✅ Helper function to get class name by classId
+suspend fun getClassModelById(classId: String): ClassModel? {
+    return try {
+        val response = apiService.getClassById(classId)
+        if (response.isSuccessful) {
+            response.body()   // ✅ Returns the entire ClassModel object
+        } else {
+            null              // ❌ API failed, return null
+        }
+    } catch (e: Exception) {
+        null                  // ❌ Exception occurred, return null
+    }
+}
+
+// ✅ Helper function to get subject name by subjectId
+suspend fun getSubjectNameById(subjectId: String): String {
+    return try {
+        val response = apiService.getSubjectById(subjectId)
+        if (response.isSuccessful) {
+            response.body()?.subjectName ?: subjectId
+        } else {
+            subjectId
+        }
+    } catch (e: Exception) {
+        subjectId
     }
 }
