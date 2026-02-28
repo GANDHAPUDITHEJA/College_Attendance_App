@@ -1,137 +1,117 @@
+# 📌 Smart Attendance System Using Face Recognition
 
+## 📖 Overview
 
-📌 Smart Attendance System Using Face Recognition
-📖 Overview
-
-The Smart Attendance System is an automated classroom attendance solution that uses Face Recognition Technology to detect and mark student attendance efficiently.
+The **Smart Attendance System** is an automated classroom attendance solution that leverages **Face Recognition Technology** to efficiently detect and mark student attendance.
 
 The system integrates:
 
-📱 Android Application (Frontend)
+- 📱 **Android Application (Frontend)**
+- 🧠 **Face Recognition using `face_recognition` (dlib)**
+- 🖥 **Spring Boot Backend**
+- 🗄 **MS SQL Server Database**
 
-🧠 Face Recognition using face_recognition (dlib)
+This solution reduces manual effort, saves classroom time, and improves accuracy through AI-driven automation.
 
-🖥 Spring Boot Backend
+---
 
-🗄 MS SQL Server Database
+## ❗ Problems in Traditional Attendance System
 
-This solution reduces manual effort, saves classroom time, and improves accuracy.
+Traditional attendance systems face several challenges:
 
-❗ Problems in Traditional Attendance System
+- ⏳ Consumes valuable classroom time  
+- ✍ Manual data entry leads to human errors  
+- 👥 Proxy attendance is possible  
+- 📂 Difficult to manage large classroom records  
+- 📝 Paper-based records are inefficient  
+- 🔄 Time-consuming data maintenance  
 
-Traditional attendance systems face several issues:
+---
 
-⏳ Consumes valuable classroom time
+## 💡 Proposed Solution
 
-✍ Manual data entry leads to human errors
+The Smart Attendance System addresses these problems by:
 
-👥 Proxy attendance is possible
+- 📸 Capturing classroom images via Android application  
+- 🧠 Automatically recognizing multiple student faces  
+- 📊 Digitally marking attendance  
+- ✏ Providing manual correction options  
+- 🗃 Securely storing attendance records in a database  
 
-📂 Difficult to manage large classroom records
+---
 
-📝 Paper-based records are inefficient
+## 🛠 Technologies Used
 
-🔄 Time-consuming data maintenance
+### 📱 Frontend
+- Android  
+- Jetpack Compose  
 
-💡 Proposed Solution
+### 🧠 Face Recognition
+- Python `face_recognition` library  
+- Built on `dlib` deep learning model  
 
-The Smart Attendance System solves these problems by:
+### 🖥 Backend
+- Spring Boot  
 
-📸 Capturing classroom images via Android app
+### 🗄 Database
+- MS SQL Server  
 
-🧠 Automatically recognizing multiple student faces
+---
 
-📊 Marking attendance digitally
+## 👥 Types of Users & Functionalities
 
-✏ Providing manual correction option
+### 👩‍🎓 Student
+- View attendance records  
+- View assigned periods  
+- Check timetable  
 
-🗃 Storing attendance securely in database
+### 👨‍🏫 Teacher
+- Take attendance using face recognition  
+- Manual attendance option  
+- View attendance of assigned classes  
+- View student records  
+- Check timetable  
 
-🛠 Technologies Used
-📱 Frontend
+---
 
-Android
+## 🔄 Workflow of the System
 
-Jetpack Compose
+### 1️⃣ Teacher Login
+- Teacher logs into the Android application.
+- Selects assigned class.
 
-🧠 Face Recognition
+### 2️⃣ Model Preparation
+- Student images of the selected class are loaded into the face recognition model.
 
-Python face_recognition library
+### 3️⃣ Capture Image
+- Teacher captures classroom image (multiple images supported).
 
-Built on dlib deep learning model
+### 4️⃣ Backend Processing
+- Image is sent to backend.
+- Face detection is performed.
+- Face embeddings are generated.
+- Faces are matched with stored dataset.
 
-🖥 Backend
+### 5️⃣ Attendance Marking
+- Recognized student roll numbers are returned.
+- Attendance is marked automatically.
+- Manual correction is allowed if required.
 
-Spring Boot
+---
 
-🗄 Database
+## 🚀 Advantages
 
-MS SQL Server
+- ✅ Saves classroom time  
+- ✅ Reduces manual errors  
+- ✅ Minimizes proxy attendance  
+- ✅ Digital record management  
+- ✅ Scalable for large classrooms  
+- ✅ AI-powered modern solution  
 
-👥 Types of Users & Functionalities
-👩‍🎓 Student
+---
 
-View attendance records
+## 📌 Conclusion
 
-View assigned periods
+The Smart Attendance System demonstrates how **Mobile Applications, Deep Learning, and Backend Technologies** can be integrated to modernize classroom attendance management.
 
-Check timetable
-
-👨‍🏫 Teacher
-
-Take attendance using face recognition
-
-Manual attendance option
-
-View attendance of assigned classes
-
-View student records
-
-Check timetable
-
-🔄 Workflow of the System
-1️⃣ Teacher Login
-
-Teacher logs into Android application.
-
-Selects assigned class.
-
-2️⃣ Model Preparation
-
-Student images of selected class are loaded into the face recognition model.
-
-3️⃣ Capture Image
-
-Teacher captures classroom image (can take multiple images).
-
-4️⃣ Backend Processing
-
-Image is sent to backend.
-
-Face detection is performed.
-
-Face embeddings are generated.
-
-Faces are matched with stored dataset.
-
-5️⃣ Attendance Marking
-
-Recognized student roll numbers are returned.
-
-Attendance is marked automatically.
-
-Manual correction is allowed if needed.
-
-🚀 Advantages
-
-✅ Saves classroom time
-
-✅ Reduces manual errors
-
-✅ Minimizes proxy attendance
-
-✅ Digital record management
-
-✅ Scalable for large classrooms
-
-✅ AI-powered modern solution
+By automating attendance tracking, the system improves efficiency, ensures accuracy, and provides a scalable digital solution for educational institutions.
